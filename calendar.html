@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calendar — I Love Shev</title>
+  <meta name="description" content="Shared moments calendar with live clocks for Melbourne and Edmonton." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles.css" />
+  <script src="scripts/calendar.js" defer></script>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">
+        <span class="heart-logo" aria-hidden="true">♥</span>
+        <span class="brand-text">I Love Tatiana Shevyakova</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html#daily">Daily</a>
+        <a href="calendar.html" aria-current="page">Calendar</a>
+        <a href="index.html#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1 class="section-title" style="text-align:center">Our Time Zones & Calendar</h1>
+
+        <div class="clock-bar" role="region" aria-label="Live clocks">
+          <div class="clock-card" id="clock-mel">
+            <h3>Melbourne, Australia</h3>
+            <p class="clock-time" data-zone="Australia/Melbourne">--:--:--</p>
+            <p class="clock-date">Loading…</p>
+          </div>
+          <div class="clock-card" id="clock-edm">
+            <h3>Edmonton, Canada</h3>
+            <p class="clock-time" data-zone="America/Edmonton">--:--:--</p>
+            <p class="clock-date">Loading…</p>
+          </div>
+        </div>
+
+        <div class="calendar" role="region" aria-label="Interactive monthly calendar">
+          <div class="cal-header">
+            <button class="btn-ghost cal-nav" id="prevMonth" aria-label="Previous month">‹</button>
+            <h2 id="calTitle" class="cal-title">Month YYYY</h2>
+            <button class="btn-ghost cal-nav" id="nextMonth" aria-label="Next month">›</button>
+          </div>
+
+          <div class="cal-weekdays" aria-hidden="true">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+
+          <div id="calGrid" class="cal-grid" role="grid" aria-labelledby="calTitle">
+          </div>
+
+          <div class="cal-legend">
+            <span class="legend-item"><span class="dot dot-today"></span> Today</span>
+            <span class="legend-item"><span class="dot dot-milestone">♥</span> Visiting the cutie (Dec 19)</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Made with ♥ and too much smiling. © <span id="year">2025</span></p>
+    </div>
+  </footer>
+</body>
+</html>

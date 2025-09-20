@@ -106,3 +106,99 @@ function spawnClickHeart(x, y){
   document.body.appendChild(h);
   setTimeout(() => h.remove(), 1300);
 }
+
+(() => {
+  const header = document.querySelector('.site-header');
+  const toggle = document.getElementById('navToggle');
+  const nav = document.getElementById('siteNav');
+  const backdrop = document.getElementById('navBackdrop');
+  if (!header || !toggle || !nav || !backdrop) return;
+
+  function openNav() {
+    header.classList.add('nav-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    backdrop.hidden = false;
+  }
+  function closeNav() {
+    header.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    backdrop.hidden = true;
+  }
+  function toggleNav() {
+    const isOpen = header.classList.contains('nav-open');
+    isOpen ? closeNav() : openNav();
+  }
+
+  toggle.addEventListener('click', toggleNav);
+
+  nav.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') closeNav();
+  });
+  backdrop.addEventListener('click', closeNav);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeNav();
+  });
+})();
+
+/* ====== Daily Quiz logic ====== */
+(() => {
+  const container = document.querySelector('.quiz-card');
+  if (!container) return;
+
+  const options = container.querySelectorAll('.btn-option');
+  const toast = container.querySelector('#quizToast');
+  const toastText = container.querySelector('#quizToastText');
+
+  const wrongSnark = [
+    "close… but the crown belongs to Shev 👑",
+    "tempting, but it’s Shev every time 💖",
+    "nice try Shev, it's always you 😘",
+    "that’s cute, Shev’s cuter 🐱❤️",
+    "almost! answer: Shev, forever and always."
+  ];
+
+  function showToast(text){
+    toastText.textContent = text;
+    toast.setAttribute('aria-hidden', 'false');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => {
+      toast.setAttribute('aria-hidden', 'true');
+    }, 1400);
+  }
+
+  function lockIn(){
+    options.forEach(btn => btn.disabled = true);
+  }
+
+  options.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const isCorrect = btn.hasAttribute('data-correct');
+
+      if (isCorrect){
+        btn.classList.remove('wrong', 'shake');
+        btn.classList.add('correct');
+        showToast("fact: shev is the cutest being in this universe ✨");
+        const rect = btn.getBoundingClientRect();
+        const cx = rect.left + rect.width/2;
+        const cy = rect.top + rect.height/2;
+        for (let i = 0; i < 10; i++){
+          if (typeof spawnClickHeart === 'function'){
+            spawnClickHeart(cx, cy);
+          }
+        }
+        options.forEach(o => { if (o !== btn) o.classList.add('wrong'); });
+        lockIn();
+      } else {
+        btn.classList.add('wrong', 'shake');
+        setTimeout(() => btn.classList.remove('shake'), 360);
+        const line = wrongSnark[(Math.random()*wrongSnark.length)|0];
+        showToast(line);
+        if (typeof spawnClickHeart === 'function'){
+          const rect = btn.getBoundingClientRect();
+          spawnClickHeart(rect.left + rect.width/2, rect.top + rect.height/2);
+        }
+      }
+    });
+  });
+})();
