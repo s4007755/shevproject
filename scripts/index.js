@@ -53,7 +53,8 @@
     "I love you most in every moment.",
     "I love you endlessly.",
     "I love you in every timeline.",
-    "I love you more than coffee (and I love coffee).",
+    "I love you more than coffee.",
+    "I love you more than boba tea",
     "I love you like oceans love the moon.",
     "I love you, always, always, always."
   ];
