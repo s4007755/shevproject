@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>I Love Shev</title>
+  <meta name="description" content="A little love corner on the internet. Daily appreciation posts and tiny poems." />
+
+  <meta property="og:title" content="I Love My GF" />
+  <meta property="og:description" content="Daily appreciation posts and tiny poems." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/styles.css" />
+  <script src="scripts/index.js" defer></script>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">
+        <span class="heart-logo" aria-hidden="true">♥</span>
+        <span class="brand-text">I Love Tatiana Shevyakova</span>
+      </a>
+      <nav class="nav">
+        <a href="#daily">Daily Shev Appreciation</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1 class="hero-title">I love Tatiana Shevyakova so fucking much<span class="accent">.</span></h1>
+        <p class="hero-subtitle">
+          A cozy little corner where I put my everyday gratitude for the most amazing person in the universe.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#daily" aria-label="Jump to the Daily Appreciation post">Read today’s note</a>
+          <button class="btn btn-ghost love-advance" id="loveAdvanceBtn" aria-live="polite">
+            <span class="btn-heart" aria-hidden="true">♥</span>
+            <span>I love you</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="daily" class="section">
+      <div class="container">
+        <h2 class="section-title">Daily Shevy Appreciation Note</h2>
+
+        <article class="post-card">
+          <header class="post-header">
+            <h3 class="post-title">My Forever Love</h3>
+            <time class="post-date" datetime="2025-09-20">September 20, 2025</time>
+          </header>
+          <div class="post-content">
+            <p class="poem">
+              You are the heartbeat of my world, the reason everything feels brighter and softer. <br>
+              Loving you is the most beautiful thing I’ll ever know, <br>
+              and every day with you is my favorite story of my life.
+            </p>
+            <p class="note">
+              Grateful for you today because you make all the ordinary moments of my day feel so much more special and meaningful.
+            </p>
+          </div>
+          <footer class="post-footer">
+            <span class="tag">#love</span>
+            <span class="tag">#cutie</span>
+            <span class="tag">#shev</span>
+            <span class="tag">#beautiful woman</span>
+            <span class="tag">#amazing</span>
+          </footer>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="section alt">
+      <div class="container about">
+        <h2 class="section-title">About</h2>
+        <p>WIP</p>
+        <p class="small">If you’re reading this you’re a cutie.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Made with ♥ and too much smiling. © <span id="year">2025</span></p>
+    </div>
+  </footer>
+
+  <div id="lovePanel" class="love-panel" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="love-panel-card">
+      <div class="panel-graphic" aria-hidden="true">
+        <svg viewBox="0 0 200 180" class="panel-heart">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ff4d7e"/>
+              <stop offset="100%" stop-color="#ff96b0"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#g)" d="M100 170c-2 0-4-1-6-2C58 144 12 112 6 74 0 40 25 14 55 14c18 0 31 10 39 24 8-14 21-24 39-24 30 0 55 26 49 60-6 38-52 70-88 94-2 1-4 2-6 2z"/>
+        </svg>
+      </div>
+      <p id="lovePanelText" class="love-panel-text">I love you.</p>
+    </div>
+  </div>
+</body>
+</html>
