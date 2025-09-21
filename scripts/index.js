@@ -151,11 +151,14 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
   const wrongSnark = [
-    "close… but the crown belongs to Shev 👑",
-    "tempting, but it’s Shev every time 💖",
-    "nice try Shev, it's always you 😘",
-    "that’s cute, Shev’s cuter 🐱❤️",
-    "almost! answer: Shev, forever and always."
+     "tasty… but not as tasty as Shev 😘",
+     "haha nope, only Shev is on the menu ❤️",
+     "close, but Shev is the full course meal 😋",
+     "almost… but Shev’s the one that satisfies every craving 😍",
+     "close… but Shev’s the only snack I want to taste all night 😏",
+     "haha nope, Shev’s the one I want seconds, thirds, and fourths of 😘",
+     "good try… but Shev’s the snack I want to unwrap slowly 😏",
+     "cute… but Shev’s the one I’d never stop devouring ❤️"
   ];
 
   function showToast(text){
@@ -178,7 +181,7 @@ function spawnClickHeart(x, y){
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("fact: shev is the cutest being in this universe ✨");
+        showToast("fact: shev is my favourite snack that i crave every second 😋😋😋");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
