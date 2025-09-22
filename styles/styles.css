@@ -566,3 +566,84 @@ img{ max-width: 100%; display: block; }
   .quiz-card{ max-width: 94%; padding: 1.1rem 1rem 1.25rem; }
   .btn-option{ width: 100%; justify-content: center; }
 }
+
+/* ===== Countdown card ===== */
+.countdown-card{
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1rem 1.25rem 1.25rem;
+  margin: 1.25rem 0 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.countdown-card::before,
+.countdown-card::after{
+  content:"";
+  position:absolute;
+  width: 12px; height:12px;
+  left: 10px; top: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  transform: rotate(45deg);
+  border-radius: 4px;
+  filter: drop-shadow(0 6px 14px rgba(255,77,126,.35));
+  opacity: .35;
+}
+.countdown-card::after{
+  left: auto; right: 10px; top: auto; bottom: 10px;
+}
+
+.countdown-title{
+  margin: 0 0 .25rem 0;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+.countdown-sub{
+  margin: 0 0 .9rem 0;
+  color: var(--muted);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.05rem;
+}
+
+.countdown-row{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(90px, 1fr));
+  gap: .6rem;
+  justify-items: center;
+}
+.cd-pill{
+  display: grid;
+  place-items: center;
+  gap: .15rem;
+  min-height: 76px;
+  width: 100%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 18px rgba(0,0,0,.25);
+}
+.cd-pill span{
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  font-weight: 800;
+}
+.cd-pill small{
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  font-size: .75rem;
+}
+
+.countdown-when{
+  margin: .75rem 0 0 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+@media (max-width: 720px){
+  .countdown-row{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

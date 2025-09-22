@@ -122,3 +122,78 @@
 
   render();
 })();
+
+/* ===== Countdown to Dec 19, 5:00 PM Edmonton ===== */
+(() => {
+  const daysEl = document.getElementById('cdDays');
+  const hoursEl = document.getElementById('cdHours');
+  const minsEl  = document.getElementById('cdMinutes');
+  const secsEl  = document.getElementById('cdSeconds');
+  const whenLocalEl = document.getElementById('cdWhenLocal');
+  if (!daysEl || !hoursEl || !minsEl || !secsEl || !whenLocalEl) return;
+
+  const TZ = 'America/Edmonton';
+
+  function nextTargetUtcMs(now = new Date()){
+    const yNow = now.getFullYear();
+    const thisYearMs = edmontonWallTimeToUTCms(yNow, 12, 19, 17, 0, 0);
+    const isPast = Date.now() > thisYearMs;
+    const y = isPast ? yNow + 1 : yNow;
+    return edmontonWallTimeToUTCms(y, 12, 19, 17, 0, 0);
+  }
+
+  function edmontonWallTimeToUTCms(year, month, day, hour, minute, second){
+    let guess = Date.UTC(year, month - 1, day, hour, minute, second);
+    let off1 = tzOffsetMinutes(new Date(guess), TZ);
+    let utc = guess - off1 * 60_000;
+    let off2 = tzOffsetMinutes(new Date(utc), TZ);
+    return guess - off2 * 60_000;
+  }
+
+  function tzOffsetMinutes(utcDate, timeZone){
+    const fmt = new Intl.DateTimeFormat('en-CA', {
+      timeZone, hour12: false,
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+    const parts = fmt.formatToParts(utcDate).reduce((acc,p) => (acc[p.type]=p.value, acc), {});
+    const asIfLocalUTC = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour, +parts.minute, +parts.second);
+    return (asIfLocalUTC - utcDate.getTime()) / 60000;
+  }
+
+  function setWhenLabel(targetMs){
+    const target = new Date(targetMs);
+    const edmontonLabel = new Intl.DateTimeFormat('en-CA', {
+      timeZone: TZ, weekday:'long', month:'long', day:'numeric', year:'numeric',
+      hour:'numeric', minute:'2-digit'
+    }).format(target);
+    whenLocalEl.textContent = `${edmontonLabel} (Edmonton)`;
+  }
+
+  const targetMs = nextTargetUtcMs();
+  setWhenLabel(targetMs);
+
+  function update(){
+    const diff = targetMs - Date.now();
+    if (diff <= 0){
+      daysEl.textContent = '0'; hoursEl.textContent = '0'; minsEl.textContent = '0'; secsEl.textContent = '0';
+      const row = document.getElementById('countdownRow');
+      if (row) row.style.boxShadow = '0 0 0 4px rgba(255,150,176,.18) inset';
+      return;
+    }
+    const totalSeconds = Math.floor(diff / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    daysEl.textContent = String(days);
+    hoursEl.textContent = String(hours).padStart(2,'0');
+    minsEl.textContent  = String(minutes).padStart(2,'0');
+    secsEl.textContent  = String(seconds).padStart(2,'0');
+  }
+
+  update();
+  setInterval(update, 1000);
+})();
+
