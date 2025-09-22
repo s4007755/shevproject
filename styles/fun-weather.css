@@ -1,0 +1,45 @@
+/* Fun Edmonton weather card */
+.funwx-card{
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1rem 1.25rem 1.25rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.funwx-title{
+  margin: 0 0 .25rem 0;
+  font-weight: 800;
+  letter-spacing: .2px;
+  display: inline-flex; gap: .5rem; align-items: center;
+}
+.funwx-title .badge{
+  display:inline-grid; place-items:center;
+  width: 1.35em; height: 1.35em; border-radius: 6px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff; font-weight: 900;
+  box-shadow: 0 4px 12px var(--ring);
+}
+
+.funwx-sub{
+  margin: 0 0 .8rem 0;
+  color: var(--muted);
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+.funwx-line{
+  font-size: 1.05rem;
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+.funwx-stats{
+  margin-top: .7rem;
+  display: flex; flex-wrap: wrap; gap: .6rem 1rem;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+@media (max-width: 720px){
+  .funwx-card{ padding: .9rem 1rem 1.1rem; }
+}
