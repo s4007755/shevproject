@@ -181,7 +181,7 @@ function spawnClickHeart(x, y){
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("fact: shev is my favourite snack that i crave every second 😋😋😋");
+        showToast("fact: I love shev endlessly, more than any dream, more than any light in the universe, shev's light illuminates me more than any star in the universe.");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
