@@ -197,3 +197,90 @@
   setInterval(update, 1000);
 })();
 
+/* ===== Weather ===== */
+(() => {
+  const LOCS = [
+    {
+      name: "Mornington",
+      lat: -38.217, lon: 145.038,
+      sel: {
+        emoji: "#wxMornEmoji", summary: "#wxMornSummary",
+        t: "#wxMornTemp", f: "#wxMornFeels", h: "#wxMornHum", w: "#wxMornWind"
+      }
+    },
+    {
+      name: "Edmonton",
+      lat: 53.5461, lon: -113.4938,
+      sel: {
+        emoji: "#wxEdmEmoji", summary: "#wxEdmSummary",
+        t: "#wxEdmTemp", f: "#wxEdmFeels", h: "#wxEdmHum", w: "#wxEdmWind"
+      }
+    }
+  ];
+
+  function codeToSummary(code){
+    if ([0].includes(code))            return { text: "Clear sky",           emoji: "☀️" };
+    if ([1].includes(code))            return { text: "Mainly clear",        emoji: "🌤️" };
+    if ([2].includes(code))            return { text: "Partly cloudy",       emoji: "⛅"  };
+    if ([3].includes(code))            return { text: "Overcast",            emoji: "☁️"  };
+    if ([45,48].includes(code))        return { text: "Foggy",               emoji: "🌫️" };
+    if ([51,53,55].includes(code))     return { text: "Drizzle",             emoji: "🌦️" };
+    if ([56,57].includes(code))        return { text: "Freezing drizzle",    emoji: "🥶"  };
+    if ([61,63,65].includes(code))     return { text: "Rain",                emoji: "🌧️" };
+    if ([66,67].includes(code))        return { text: "Freezing rain",       emoji: "🧊"  };
+    if ([71,73,75].includes(code))     return { text: "Snow",                emoji: "❄️"  };
+    if ([77].includes(code))           return { text: "Snow grains",         emoji: "🌨️" };
+    if ([80,81,82].includes(code))     return { text: "Rain showers",        emoji: "🌧️" };
+    if ([85,86].includes(code))        return { text: "Snow showers",        emoji: "🌨️" };
+    if ([95].includes(code))           return { text: "Thunderstorm",        emoji: "⛈️" };
+    if ([96,99].includes(code))        return { text: "Thunderstorm w/ hail",emoji: "⛈️" };
+    return { text: "—", emoji: "❓" };
+  }
+
+  async function fetchWx({lat, lon}){
+    const params = new URLSearchParams({
+      latitude: lat, longitude: lon,
+      current: "temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,wind_speed_10m",
+      timezone: "auto"
+    });
+    const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Weather fetch failed: ${res.status}`);
+    return res.json();
+  }
+
+  function fill(sel, data){
+    const c = data.current;
+    const { text, emoji } = codeToSummary(c.weather_code);
+
+    const $ = (q) => document.querySelector(q);
+    $(sel.emoji).textContent = emoji;
+    $(sel.summary).textContent = text;
+    $(sel.t).textContent = Math.round(c.temperature_2m);
+    $(sel.f).textContent = Math.round(c.apparent_temperature);
+    $(sel.h).textContent = Math.round(c.relative_humidity_2m);
+    $(sel.w).textContent = typeof c.wind_speed_10m === "number" ? c.wind_speed_10m.toFixed(1) : "—";
+  }
+
+  function showError(sel, err){
+    const $ = (q) => document.querySelector(q);
+    $(sel.emoji).textContent = "⚠️";
+    $(sel.summary).textContent = "Weather unavailable";
+    $(sel.t).textContent = "—";
+    $(sel.f).textContent = "—";
+    $(sel.h).textContent = "—";
+    $(sel.w).textContent = "—";
+    console.error(err);
+  }
+
+  LOCS.forEach(async (loc) => {
+    try {
+      const data = await fetchWx(loc);
+      fill(loc.sel, data);
+    } catch (e) {
+      showError(loc.sel, e);
+    }
+  });
+})();
+
+

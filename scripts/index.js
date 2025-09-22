@@ -151,14 +151,14 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
   const wrongSnark = [
-     "tasty… but not as tasty as Shev 😘",
-     "haha nope, only Shev is on the menu ❤️",
-     "close, but Shev is the full course meal 😋",
-     "almost… but Shev’s the one that satisfies every craving 😍",
-     "close… but Shev’s the only snack I want to taste all night 😏",
-     "haha nope, Shev’s the one I want seconds, thirds, and fourths of 😘",
-     "good try… but Shev’s the snack I want to unwrap slowly 😏",
-     "cute… but Shev’s the one I’d never stop devouring ❤️"
+     "haha nope… I love you more, always 😘",
+     "close, but my love scale is broken because it’s off the charts ❤️",
+     "cute try, but my love is bigger, louder, brighter 🌟",
+     "sweet answer… but my heart is already overflowing more than yours 😍",
+     "close… but your cuteness makes me love you even harder 💓",
+     "hehe nope, every heartbeat I have is shouting I love you more 💗",
+     "almost… but my love is a bottomless pit (and you’re stuck in it 😘)",
+     "nope nope nope, my love is infinite squared ♾️"
   ];
 
   function showToast(text){
@@ -167,7 +167,7 @@ function spawnClickHeart(x, y){
     clearTimeout(showToast._t);
     showToast._t = setTimeout(() => {
       toast.setAttribute('aria-hidden', 'true');
-    }, 1400);
+    }, 2500);
   }
 
   function lockIn(){
