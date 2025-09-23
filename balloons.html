@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Balloon Pop - I Love Shev</title>
+  <meta name="description" content="Pop cute heart balloons to reveal sweet notes for Shev." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="styles/balloons.css" />
+  <script defer src="scripts/balloons.js"></script>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container nav-row">
+      <a class="brand" href="/">
+        <span class="heart-logo" aria-hidden="true">♥</span>
+        <span class="brand-text">I Love Tatiana Shevyakova</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="siteNav" aria-expanded="false">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav" id="siteNav">
+        <a href="index.html#daily">Daily</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="balloons.html" aria-current="page">Balloon Pop</a>
+        <a href="index.html#about">About</a>
+      </nav>
+    </div>
+    <div class="nav-backdrop" id="navBackdrop" hidden></div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1 class="section-title" style="text-align:center">Balloon Pop for Shev</h1>
+
+        <div class="bp-hud" role="region" aria-label="Game controls">
+          <div class="bp-mode">
+            <label class="bp-select">
+              Mode:
+              <select id="bpMode" aria-label="Difficulty mode">
+                <option value="easy">Easy</option>
+                <option value="hard">Hard</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="bp-stats">
+            <span>Score: <b id="bpScore">0</b></span>
+            <span>Missed: <b id="bpMissed">0</b>/<b id="bpMissCap">5</b></span>
+            <span>Wave: <b id="bpWave">1</b></span>
+            <span>Best: <b id="bpBest">0</b></span>
+            <span>Total Kisses: <b id="bpTotal">0</b></span>
+            <span class="bp-status" id="bpStatus">Ready</span>
+          </div>
+
+          <div class="bp-actions">
+            <button id="bpStart" class="btn">Start</button>
+            <button id="bpReset" class="btn btn-ghost">Reset</button>
+            <button id="bpMute" class="btn btn-ghost" aria-pressed="false" title="Toggle sound">🔊</button>
+          </div>
+        </div>
+
+        <div class="bp-wavebar" aria-label="Wave progress">
+          <div class="bp-wavebar-track">
+            <span class="bp-wavebar-fill" id="bpWaveFill" style="width:0%"></span>
+          </div>
+          <p class="bp-wavebar-text"><span id="bpWaveTime">Wave time: 20.0s</span></p>
+        </div>
+
+        <div class="bp-meter" aria-label="Kisses meter">
+          <div class="bp-meter-bar"><span class="bp-meter-fill" id="bpMeterFill" style="width:0%"></span></div>
+          <p class="bp-meter-text"><span id="bpMeterText">Kisses sent: 0</span></p>
+        </div>
+
+        <div id="bpStage" class="bp-stage" role="application" aria-label="Balloon pop stage"></div>
+
+        <div id="bpWaveBanner" class="bp-wave-banner" aria-hidden="true">Wave 1</div>
+
+        <div id="bpToast" class="bp-toast" role="status" aria-live="polite" aria-hidden="true">
+          <span id="bpToastText">You’re my sunshine.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="bpOver" class="bp-over" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="bp-over-card">
+      <h2>Game Over</h2>
+      <p class="bp-over-sub">
+        Score: <b id="bpFinalScore">0</b> • Notes Collected: <b id="bpFinalNotes">0</b> • Best: <b id="bpFinalBest">0</b>
+      </p>
+      <div class="bp-over-actions">
+        <button id="bpRestart" class="btn">Restart</button>
+        <button id="bpViewNotes" class="btn btn-ghost">View Collected Notes</button>
+        <button id="bpCloseOver" class="btn btn-ghost">Close</button>
+      </div>
+      <div id="bpNotesList" class="bp-notes-list" hidden></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Made with ♥ and too much smiling. © <span id="year">2025</span></p>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+      const header = document.querySelector('.site-header');
+      const toggle = document.getElementById('navToggle');
+      const nav = document.getElementById('siteNav');
+      const backdrop = document.getElementById('navBackdrop');
+      if (!header || !toggle || !nav || !backdrop) return;
+      function openNav(){ header.classList.add('nav-open'); toggle.setAttribute('aria-expanded','true'); backdrop.hidden=false; }
+      function closeNav(){ header.classList.remove('nav-open'); toggle.setAttribute('aria-expanded','false'); backdrop.hidden=true; }
+      toggle.addEventListener('click', ()=> header.classList.contains('nav-open') ? closeNav() : openNav());
+      nav.addEventListener('click', e => { if (e.target.tagName === 'A') closeNav(); });
+      backdrop.addEventListener('click', closeNav);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+    })();
+  </script>
+</body>
+</html>
