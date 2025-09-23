@@ -151,14 +151,14 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
   const wrongSnark = [
-     "haha nope… I love you more, always 😘",
-     "close, but my love scale is broken because it’s off the charts ❤️",
-     "cute try, but my love is bigger, louder, brighter 🌟",
-     "sweet answer… but my heart is already overflowing more than yours 😍",
-     "close… but your cuteness makes me love you even harder 💓",
-     "hehe nope, every heartbeat I have is shouting I love you more 💗",
-     "almost… but my love is a bottomless pit (and you’re stuck in it 😘)",
-     "nope nope nope, my love is infinite squared ♾️"
+     "close… but nothing outshines Shev ✨",
+     "almost… yet Shev’s glow is in a league of its own 💫",
+     "not quite, Shev is the constant star of my universe ⭐",
+     "cute guess, but Shev burns brighter than any cosmic fire 🔥",
+     "negative, Shev is the lighthouse of my heart 🕯️",
+     "alas, Shev is the benchmark for brightness 📈",
+     "nope… Shev is the glow the night waits for 🌙",
+     "good try! but Shev is my eternal sunrise 🌅"
   ];
 
   function showToast(text){
@@ -181,7 +181,7 @@ function spawnClickHeart(x, y){
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("fact: I love shev endlessly, more than any dream, more than any light in the universe, shev's light illuminates me more than any star in the universe.");
+        showToast("Fact: Shev outshines every star, even the universe stares in awe ✨❤️");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
