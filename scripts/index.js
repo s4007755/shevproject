@@ -151,14 +151,14 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
   const wrongSnark = [
-     "close… but nothing outshines Shev ✨",
-     "almost… yet Shev’s glow is in a league of its own 💫",
-     "not quite, Shev is the constant star of my universe ⭐",
-     "cute guess, but Shev burns brighter than any cosmic fire 🔥",
-     "negative, Shev is the lighthouse of my heart 🕯️",
-     "alas, Shev is the benchmark for brightness 📈",
-     "nope… Shev is the glow the night waits for 🌙",
-     "good try! but Shev is my eternal sunrise 🌅"
+     "nice try… but my favourite coordinates are wherever Shev is 🧭",
+     "tempting… yet Shev is my true north 🌌",
+     "almost… but Shev’s boobs are the universe’s best destination 🤗",
+     "cute guess, but Shev is home, always 🏡",
+     "nope… Shev’s orbit is where my heart settles 🪐",
+     "close… but Shev is the only map i’ll ever follow 🗺️",
+     "sweet idea, but Shev is the galaxy i belong to 🌠",
+     "good one! but Shev is the centre of every dream 🌍"
   ];
 
   function showToast(text){
@@ -181,7 +181,7 @@ function spawnClickHeart(x, y){
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("Fact: Shev outshines every star, even the universe stares in awe ✨❤️");
+        showToast("Fact: my happiest coordinates are wherever Shev is, always, forever, exactly there.");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
