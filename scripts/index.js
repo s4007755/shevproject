@@ -151,14 +151,11 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
   const wrongSnark = [
-     "nice try… but my favourite coordinates are wherever Shev is 🧭",
-     "tempting… yet Shev is my true north 🌌",
-     "almost… but Shev’s boobs are the universe’s best destination 🤗",
-     "cute guess, but Shev is home, always 🏡",
-     "nope… Shev’s orbit is where my heart settles 🪐",
-     "close… but Shev is the only map i’ll ever follow 🗺️",
-     "sweet idea, but Shev is the galaxy i belong to 🌠",
-     "good one! but Shev is the centre of every dream 🌍"
+    "**cute guess… but nothing feels as right as being tangled up with Shev in bed 😏**",
+    "**almost… but Shev’s bed is where passion and love collide 💕**",
+    "**nice try… the real paradise is under the sheets with Shev 💋**",
+    "**sweet thought, but Shev’s bed is where I lose myself in you ❤️**",
+    "**good one! but Shev’s bed is where every dream comes true 😘**"
   ];
 
   function showToast(text){
@@ -181,7 +178,7 @@ function spawnClickHeart(x, y){
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("Fact: my happiest coordinates are wherever Shev is, always, forever, exactly there.");
+        showToast("Fact: Shev’s bed is my heaven — the place I get to kiss you, touch you, and make love to you until the universe disappears. 🔥");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
