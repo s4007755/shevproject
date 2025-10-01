@@ -151,12 +151,13 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
   const wrongSnark = [
-    "**cute guess… but nothing feels as right as being tangled up with Shev in bed 😏**",
-    "**almost… but Shev’s bed is where passion and love collide 💕**",
-    "**nice try… the real paradise is under the sheets with Shev 💋**",
-    "**sweet thought, but Shev’s bed is where I lose myself in you ❤️**",
-    "**good one! but Shev’s bed is where every dream comes true 😘**"
+    "<strong>close… but I short circuit the moment you climb on my lap</strong>",
+    "<strong>tempting… yet your weight on me makes it hard</strong>",
+    "<strong>nice try… but lap time = instant meltdown for me</strong>",
+    "<strong>cute guess, but nothing wrecks me like you settling in, right there</strong>",
+    "<strong>good one! still, my weakness is you on top of me</strong>"
   ];
+
 
   function showToast(text){
     toastText.textContent = text;
@@ -178,7 +179,7 @@ function spawnClickHeart(x, y){
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("Fact: Shev’s bed is my heaven — the place I get to kiss you, touch you, and make love to you until the universe disappears. 🔥");
+        showToast("Fact: you on my lap is instant brain off, heart racing, all you.");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
