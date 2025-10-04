@@ -151,11 +151,26 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
   const wrongSnark = [
-    "<strong>close… but I short circuit the moment you climb on my lap</strong>",
-    "<strong>tempting… yet your weight on me makes it hard</strong>",
-    "<strong>nice try… but lap time = instant meltdown for me</strong>",
-    "<strong>cute guess, but nothing wrecks me like you settling in, right there</strong>",
-    "<strong>good one! still, my weakness is you on top of me</strong>"
+  "<strong>tempting… but nothing scrambles me like you on my lap</strong>",
+  "<strong>close… but that move doesn’t melt me like your lap game</strong>",
+  "<strong>cute, but I malfunction when you settle in on me</strong>",
+  "<strong>spicy, yet not the instant brain-off like lap time</strong>",
+  "<strong>good guess! still, you sitting on me is the kryptonite</strong>",
+  "<strong>nice try—my undoing is you perched right there</strong>",
+  "<strong>almost… but lap mode flips every switch</strong>",
+  "<strong>sweet… but I short-circuit the moment you climb on</strong>",
+  "<strong>close, but I’m finished the second you settle on me</strong>",
+  "<strong>adorable answer, but ‘on my lap’ wins every time</strong>",
+  "<strong>not bad, but my weakness has a reserved seat (on me)</strong>",
+  "<strong>love that, but the instant KO is you sitting on me</strong>",
+  "<strong>hmm… still not the total meltdown like lap cuddles</strong>",
+  "<strong>nice pick, but my systems crash under lap privileges</strong>",
+  "<strong>nearly! but the fastest way is you right on my lap</strong>",
+  "<strong>cute guess! the cheat code is ‘sit here’</strong>",
+  "<strong>solid option, but I’m defenseless when you’re on me</strong>",
+  "<strong>close! but the autopilot switches on with lap time</strong>",
+  "<strong>love it, but that’s not the instant puddle like lap mode</strong>",
+  "<strong>good try—still not the ‘goodbye composure’ that lap brings</strong>"
   ];
 
 
@@ -179,7 +194,7 @@ function spawnClickHeart(x, y){
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("Fact: you on my lap is instant brain off, heart racing, all you.");
+        showToast("Fact: My heart has a single permanent resident: Shev");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
