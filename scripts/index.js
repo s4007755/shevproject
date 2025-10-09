@@ -150,28 +150,27 @@ function spawnClickHeart(x, y){
   const toast = container.querySelector('#quizToast');
   const toastText = container.querySelector('#quizToastText');
 
-  const wrongSnark = [
-  "<strong>tempting… but nothing scrambles me like you on my lap</strong>",
-  "<strong>close… but that move doesn’t melt me like your lap game</strong>",
-  "<strong>cute, but I malfunction when you settle in on me</strong>",
-  "<strong>spicy, yet not the instant brain-off like lap time</strong>",
-  "<strong>good guess! still, you sitting on me is the kryptonite</strong>",
-  "<strong>nice try—my undoing is you perched right there</strong>",
-  "<strong>almost… but lap mode flips every switch</strong>",
-  "<strong>sweet… but I short-circuit the moment you climb on</strong>",
-  "<strong>close, but I’m finished the second you settle on me</strong>",
-  "<strong>adorable answer, but ‘on my lap’ wins every time</strong>",
-  "<strong>not bad, but my weakness has a reserved seat (on me)</strong>",
-  "<strong>love that, but the instant KO is you sitting on me</strong>",
-  "<strong>hmm… still not the total meltdown like lap cuddles</strong>",
-  "<strong>nice pick, but my systems crash under lap privileges</strong>",
-  "<strong>nearly! but the fastest way is you right on my lap</strong>",
-  "<strong>cute guess! the cheat code is ‘sit here’</strong>",
-  "<strong>solid option, but I’m defenseless when you’re on me</strong>",
-  "<strong>close! but the autopilot switches on with lap time</strong>",
-  "<strong>love it, but that’s not the instant puddle like lap mode</strong>",
-  "<strong>good try—still not the ‘goodbye composure’ that lap brings</strong>"
-  ];
+const wrongSnark = [
+  "tempting… but nothing tastes as good as Shev 😏",
+  "close… but Shev is my forever meal 🍴",
+  "cute, but I only crave one meal: you 😘",
+  "spicy choice, still not the Shev special 🌶️",
+  "good guess! but Shev is the main course 🍽️",
+  "nice try, my appetite is reserved for you 💕",
+  "almost… but only Shev is on the menu for life 📝",
+  "sweet… but Shev is the ultimate flavour 🍯",
+  "close, but Shev is the only thing that fills me up 🤤",
+  "adorable answer, but Shev is my eternal craving 💖",
+  "not bad, but Shev is my lifetime snack 🍫",
+  "love that, but Shev is my all you can eat buffet 🍱",
+  "hmm… still not the permanent craving like Shev 🔥",
+  "nearly! but the only feast is Shev 🍓",
+  "solid option, but Shev is the main dish 🍝",
+  "close! but Shev is the forever flavor 🥰",
+  "love it, but Shev is the ultimate treat 🍭",
+  "good try, still not the Shev special 💋"
+];
+
 
 
   function showToast(text){
@@ -194,7 +193,7 @@ function spawnClickHeart(x, y){
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("Fact: My heart has a single permanent resident: Shev");
+        showToast("Fact: Shev is my favourite meal to eat 24/7, i love it");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
