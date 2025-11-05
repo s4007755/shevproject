@@ -150,25 +150,21 @@ function spawnClickHeart(x, y){
   const toast = container.querySelector('#quizToast');
   const toastText = container.querySelector('#quizToastText');
 
-const wrongSnark = [
-  "tempting… but nothing tastes as good as Shev 😏",
-  "close… but Shev is my forever meal 🍴",
-  "cute, but I only crave one meal: you 😘",
-  "spicy choice, still not the Shev special 🌶️",
-  "good guess! but Shev is the main course 🍽️",
-  "nice try, my appetite is reserved for you 💕",
-  "almost… but only Shev is on the menu for life 📝",
-  "sweet… but Shev is the ultimate flavour 🍯",
-  "close, but Shev is the only thing that fills me up 🤤",
-  "adorable answer, but Shev is my eternal craving 💖",
-  "not bad, but Shev is my lifetime snack 🍫",
-  "love that, but Shev is my all you can eat buffet 🍱",
-  "hmm… still not the permanent craving like Shev 🔥",
-  "nearly! but the only feast is Shev 🍓",
-  "solid option, but Shev is the main dish 🍝",
-  "close! but Shev is the forever flavor 🥰",
-  "love it, but Shev is the ultimate treat 🍭",
-  "good try, still not the Shev special 💋"
+const wrongSnarkThoughts = [
+  "tempting… but my brain only trips over Shev 😏",
+  "close… but the real thief wears your smile 💘",
+  "cute guess, but the crime scene screams ‘Shev’ 🕵️‍♂️",
+  "spicy theory, still not the mastermind of my daydreams 🔥",
+  "nice try, my attention has a single repeat offender: Shev 💋",
+  "almost… but Shev is the one ‘accidentally’ shoplifting my focus 🛍️",
+  "sweet answer, but Shev’s the headline in my headlines 🗞️",
+  "adorable, yet Shev holds the exclusive distraction license 🎟️",
+  "not bad, but Shev’s fingerprints are on every thought 🖐️",
+  "cute, but Shev’s the reason my brain forgets to blink 👀",
+  "nice guess, but my red blood cells only detour for Shev 🧠➡️💖",
+  "not quite, Shev is my permanent mental wallpaper 🖼️",
+  "almost… but Shev’s the loop my brain replays on repeat 🔁",
+  "sweet guess, though the heart prints point to Shev ❤️‍🔥",
 ];
 
 
@@ -193,7 +189,7 @@ const wrongSnark = [
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("Fact: Shev is my favourite meal to eat 24/7, i love it");
+        showToast("Fact: Shev is wanted for excessive cuteness, first degree kiss theft and stealing my entire willpower. 💞");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
