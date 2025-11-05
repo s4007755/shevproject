@@ -150,7 +150,7 @@ function spawnClickHeart(x, y){
   const toast = container.querySelector('#quizToast');
   const toastText = container.querySelector('#quizToastText');
 
-const wrongSnarkThoughts = [
+const wrongSnark = [
   "tempting… but my brain only trips over Shev 😏",
   "close… but the real thief wears your smile 💘",
   "cute guess, but the crime scene screams ‘Shev’ 🕵️‍♂️",
