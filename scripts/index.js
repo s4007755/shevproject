@@ -151,21 +151,16 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
 const wrongSnark = [
-  "tempting… but my brain only trips over Shev 😏",
-  "close… but the real thief wears your smile 💘",
-  "cute guess, but the crime scene screams ‘Shev’ 🕵️‍♂️",
-  "spicy theory, still not the mastermind of my daydreams 🔥",
-  "nice try, my attention has a single repeat offender: Shev 💋",
-  "almost… but Shev is the one ‘accidentally’ shoplifting my focus 🛍️",
-  "sweet answer, but Shev’s the headline in my headlines 🗞️",
-  "adorable, yet Shev holds the exclusive distraction license 🎟️",
-  "not bad, but Shev’s fingerprints are on every thought 🖐️",
-  "cute, but Shev’s the reason my brain forgets to blink 👀",
-  "nice guess, but my red blood cells only detour for Shev 🧠➡️💖",
-  "not quite, Shev is my permanent mental wallpaper 🖼️",
-  "almost… but Shev’s the loop my brain replays on repeat 🔁",
-  "sweet guess, though the heart prints point to Shev ❤️‍🔥",
+  "cute, but random sunbeams don’t upgrade my whole day like Shev does ☀️",
+  "close, but even the brightest light can’t compete with Shev’s glow 💡✨",
+  "adorable guess, but only Shev has the ‘instant mood upgrade’ superpower ⚡",
+  "tempting… but the real daylight savings is just Shev walking into the room 🌅",
+  "not bad, but my daily miracle has your smile, not a power cord 🔌💖",
+  "nice theory, but miracles don’t come with an off switch, just Shev 💭",
+  "precious guess, but my favorite light source wears your face ✨",
+  "not quite, my daily miracle has soft eyes and dangerous levels of cuteness 👀",
 ];
+
 
 
 
@@ -189,7 +184,7 @@ const wrongSnark = [
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("Fact: Shev is wanted for excessive cuteness, first degree kiss theft and stealing my entire willpower. 💞");
+        showToast("Fact: My whole heart has one automatic answer: Shev 💞");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
