@@ -151,17 +151,13 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
 const wrongSnark = [
-  "cute, but random sunbeams don’t upgrade my whole day like Shev does ☀️",
-  "close, but even the brightest light can’t compete with Shev’s glow 💡✨",
-  "adorable guess, but only Shev has the ‘instant mood upgrade’ superpower ⚡",
-  "tempting… but the real daylight savings is just Shev walking into the room 🌅",
-  "not bad, but my daily miracle has your smile, not a power cord 🔌💖",
-  "nice theory, but miracles don’t come with an off switch, just Shev 💭",
-  "precious guess, but my favorite light source wears your face ✨",
-  "not quite, my daily miracle has soft eyes and dangerous levels of cuteness 👀",
+  "hmm, cute guess… but only Shev makes my pulse do that stupid thing ❤️‍🔥",
+  "tempting, but nothing flusters me the way Shev does with one tiny smile 😏",
+  "nice try, but only Shev can short circuit my brain and my dignity at the same time 😮‍💨",
+  "close, but Shev’s the only one who can ruin my focus with a single look 😉",
+  "adorable, but my favorite distraction is Shev’s eyes and that dangerous charm 🔥",
+  "creative, but Shev is the only one who can turn my whole day warm with just one thought 😌",
 ];
-
-
 
 
   function showToast(text){
@@ -184,7 +180,7 @@ const wrongSnark = [
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("Fact: My whole heart has one automatic answer: Shev 💞");
+        showToast("Fact: My sky genuinely shifts colors when I think about Shev💞");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
