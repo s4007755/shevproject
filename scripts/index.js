@@ -151,14 +151,16 @@ function spawnClickHeart(x, y){
   const toastText = container.querySelector('#quizToastText');
 
 const wrongSnark = [
-  "hmm, cute guess… but only Shev makes my pulse do that stupid thing ❤️‍🔥",
-  "tempting, but nothing flusters me the way Shev does with one tiny smile 😏",
-  "nice try, but only Shev can short circuit my brain and my dignity at the same time 😮‍💨",
-  "close, but Shev’s the only one who can ruin my focus with a single look 😉",
-  "adorable, but my favorite distraction is Shev’s eyes and that dangerous charm 🔥",
-  "creative, but Shev is the only one who can turn my whole day warm with just one thought 😌",
+  "Cute, but no one beams light into my soul like Shev does 🌟",
+  "Adorable guess, but Shev’s magic is literally unmatched 💖",
+  "Close… but nothing makes my world sparkle like Shev’s smile ✨",
+  "Cute thought, but only Shev makes me feel like every day is a little miracle 🌈",
+  "Almost… but only Shev can make time slow down just by being herself ⏳💗",
+  "Adorable guess, but the real hero of my heart is Shev ❤️‍🔥",
+  "Close… but only Shev has the power to make me smile without even trying 😊💫",
+  "Creative, but Shev’s presence turns every second into pure magic ✨💞",
+  "Adorable, but Shev makes every ordinary day feel like a masterpiece 🎨💖",
 ];
-
 
   function showToast(text){
     toastText.textContent = text;
@@ -180,7 +182,7 @@ const wrongSnark = [
       if (isCorrect){
         btn.classList.remove('wrong', 'shake');
         btn.classList.add('correct');
-        showToast("Fact: My sky genuinely shifts colors when I think about Shev💞");
+        showToast("Fact: Every single day, Shev makes life brighter just by being herself.💞");
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
