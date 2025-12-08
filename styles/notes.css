@@ -15,7 +15,6 @@
   mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
 }
 
-/* Create actual floating hearts with “shev” text */
 .notes-hearts-bg::after {
   content: "shev   shev   shev   shev   shev";
   position: absolute;
@@ -33,6 +32,7 @@
   100% { transform: translateY(-220vh); }
 }
 
+
 /* Journal form */
 .note-form {
   background: linear-gradient(180deg, var(--card), var(--card-2));
@@ -41,12 +41,6 @@
   border-radius: 16px;
   padding: 1.25rem 1.25rem 1.5rem;
   margin-bottom: 1.5rem;
-}
-
-.note-form-title {
-  margin: 0 0 .8rem;
-  font-size: 1.3rem;
-  font-weight: 800;
 }
 
 .note-form input,
@@ -61,14 +55,40 @@
   font-size: 1rem;
 }
 
-.file-label {
-  display: flex;
-  justify-content: space-between;
+/* Sticker chooser */
+.sticker-chooser p {
+  margin: 0 0 .35rem;
   font-size: .9rem;
   color: var(--muted);
-  margin-bottom: .85rem;
 }
 
+.sticker-options {
+  display: flex;
+  gap: .7rem;
+  margin-bottom: 1rem;
+}
+
+.sticker-options span {
+  font-size: 1.8rem;
+  cursor: pointer;
+  filter: saturate(0.3);
+  transform: scale(1);
+  transition: 0.25s ease;
+}
+
+.sticker-options span:hover {
+  transform: scale(1.25) rotate(8deg);
+  filter: saturate(1);
+}
+
+.sticker-options span.active {
+  transform: scale(1.35);
+  filter: saturate(1);
+  text-shadow: 0 0 14px rgba(255,255,255,.4);
+}
+
+
+/* Notes list */
 .notes-list {
   display: grid;
   gap: 1rem;
@@ -90,36 +110,55 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.note-title {
-  font-weight: 800;
-  margin: 0;
-}
-
-.note-meta {
-  font-size: .85rem;
-  color: var(--muted);
-  margin-bottom: .6rem;
-}
-
-/* Cute sticker icons */
 .note-stickers {
   position: absolute;
   right: .7rem;
   top: .7rem;
   display: flex;
   gap: .3rem;
-  font-size: 1.1rem;
+  font-size: 1.6rem;
+  transform: rotate(6deg);
 }
 
-.note-content {
-  margin-top: .4rem;
-  color: var(--text);
-  white-space: pre-line;
+/* Edit + Delete buttons */
+.note-actions {
+  margin-top: .65rem;
+  display: flex;
+  gap: .5rem;
 }
 
-.note-img {
-  margin-top: .7rem;
+.note-btn {
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.05);
+  padding: .35rem .75rem;
+  border-radius: 8px;
+  font-size: .8rem;
+  cursor: pointer;
+  color: var(--muted);
+  transition: .25s;
+}
+
+.note-btn:hover {
+  background: rgba(255,255,255,.15);
+}
+
+/* Edit Fields */
+.edit-field {
   width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,.35);
+  padding: .6rem .8rem;
+  margin-top: .4rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  color: var(--text);
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+  .note-card {
+    padding: .8rem 1rem 1.1rem;
+  }
+  .sticker-options span {
+    font-size: 1.5rem;
+  }
 }

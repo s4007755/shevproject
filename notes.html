@@ -61,6 +61,19 @@
           <input id="author" required placeholder="Your name" />
           <textarea id="content" rows="4" required placeholder="Write something cute for Shev..."></textarea>
 
+          <!-- Sticker Picker -->
+          <div class="sticker-chooser">
+            <p>Choose a sticker:</p>
+            <div class="sticker-options">
+              <span data-sticker="🌸">🌸</span>
+              <span data-sticker="💖">💖</span>
+              <span data-sticker="⭐">⭐</span>
+              <span data-sticker="🎀">🎀</span>
+              <span data-sticker="🐶">🐶</span>
+            </div>
+            <input type="hidden" id="chosenSticker">
+          </div>
+
           <label class="file-label">
             <span>Attach an image (optional)</span>
             <input type="file" id="imageInput" accept="image/*">
