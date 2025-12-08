@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notes — I Love Shev</title>
+  <meta name="description" content="A shared journal of cute memories and notes for Shev.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/notes.css">
+
+  <!-- Firebase -->
+  <script type="module" src="scripts/notes.js"></script>
+</head>
+
+<body>
+  <div class="notes-hearts-bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container nav-row">
+      <a class="brand" href="index.html">
+        <span class="heart-logo">♥</span>
+        <span class="brand-text">I Love Tatiana Shevyakova</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="nav" id="siteNav">
+        <a href="index.html#daily">Daily</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="balloons.html">Balloon Pop</a>
+        <a href="about.html">About</a>
+        <a href="notes.html" class="active" aria-current="page">Notes</a>
+      </nav>
+    </div>
+    <div class="nav-backdrop" id="navBackdrop" hidden></div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1 class="section-title" style="text-align:center">Our Little Journal</h1>
+        <p class="notes-desc" style="text-align:center;margin-top:-.5rem;color:var(--muted)">
+          tiny thoughts, tiny memories, tiny love letters for Shev ♡
+        </p>
+
+        <!-- Note Form -->
+        <form id="noteForm" class="note-form">
+          <h3 class="note-form-title">Write a new note</h3>
+
+          <input id="title" required placeholder="Title (e.g. 'Today's Thought')" />
+          <input id="author" required placeholder="Your name" />
+          <textarea id="content" rows="4" required placeholder="Write something cute for Shev..."></textarea>
+
+          <label class="file-label">
+            <span>Attach an image (optional)</span>
+            <input type="file" id="imageInput" accept="image/*">
+          </label>
+
+          <button class="btn" type="submit">
+            <span class="btn-heart">♥</span>
+            Save Note
+          </button>
+        </form>
+
+        <!-- Notes List -->
+        <div id="notesList" class="notes-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Made with ♥ for my cutie. © <span id="year">2025</span></p>
+    </div>
+  </footer>
+
+</body>
+</html>

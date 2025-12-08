@@ -1,0 +1,125 @@
+/* Background with floating SHEV hearts */
+.notes-hearts-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,77,126,0.06) 0px,
+      rgba(255,77,126,0.06) 2px,
+      transparent 2px,
+      transparent 140px
+    );
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
+/* Create actual floating hearts with “shev” text */
+.notes-hearts-bg::after {
+  content: "shev   shev   shev   shev   shev";
+  position: absolute;
+  top: 0; left: 0;
+  font-size: 5rem;
+  font-weight: 800;
+  letter-spacing: 2rem;
+  opacity: .04;
+  color: var(--accent);
+  animation: floatShev 28s linear infinite;
+}
+
+@keyframes floatShev {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-220vh); }
+}
+
+/* Journal form */
+.note-form {
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: var(--shadow);
+  border-radius: 16px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.note-form-title {
+  margin: 0 0 .8rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.note-form input,
+.note-form textarea {
+  width: 100%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 10px;
+  padding: .7rem .9rem;
+  margin-bottom: .75rem;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.file-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: .9rem;
+  color: var(--muted);
+  margin-bottom: .85rem;
+}
+
+.notes-list {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Note Card */
+.note-card {
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 1rem 1.2rem 1.3rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  animation: fadeIn .5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.note-title {
+  font-weight: 800;
+  margin: 0;
+}
+
+.note-meta {
+  font-size: .85rem;
+  color: var(--muted);
+  margin-bottom: .6rem;
+}
+
+/* Cute sticker icons */
+.note-stickers {
+  position: absolute;
+  right: .7rem;
+  top: .7rem;
+  display: flex;
+  gap: .3rem;
+  font-size: 1.1rem;
+}
+
+.note-content {
+  margin-top: .4rem;
+  color: var(--text);
+  white-space: pre-line;
+}
+
+.note-img {
+  margin-top: .7rem;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.35);
+}
