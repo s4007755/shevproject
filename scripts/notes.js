@@ -35,11 +35,23 @@ const form = document.getElementById("noteForm");
 const notesList = document.getElementById("notesList");
 const loadingSpinner = document.getElementById("loadingSpinner");
 const typingOverlay = document.getElementById("typingOverlay");
-
 const stickerOptions = document.querySelectorAll(".sticker-options span");
 
-// We temporarily store stickers before final submission
+// stickers waiting to be saved
 let pendingStickers = [];
+
+/* --------------------------------------------------
+   User UUID (for persistent reactions)
+-------------------------------------------------- */
+function getUserId() {
+  let id = localStorage.getItem("shev_user_id");
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem("shev_user_id", id);
+  }
+  return id;
+}
+const USER_ID = getUserId();
 
 /* --------------------------------------------------
    Floating heart animation
@@ -65,73 +77,38 @@ function spawnFloatingHeart() {
 }
 
 /* --------------------------------------------------
-   Sticker Picker: Tap to create a sticker on the note
+   Sticker Adding (no drag, cute cluster bottom-right)
 -------------------------------------------------- */
-stickerOptions.forEach(sticker => {
-  sticker.addEventListener("click", () => {
-    addStickerToPreview(sticker.dataset.sticker);
+stickerOptions.forEach(st => {
+  st.addEventListener("click", () => {
+    const emoji = st.dataset.sticker;
+    addStickerPreview(emoji);
   });
 });
 
-/* --------------------------------------------------
-   Create a draggable sticker in the pending note area
--------------------------------------------------- */
-function addStickerToPreview(emoji) {
-  const cardArea = document.querySelector(".note-form");
+function addStickerPreview(emoji) {
+  const formArea = document.querySelector(".note-form");
 
   const s = document.createElement("div");
   s.className = "note-sticker";
   s.textContent = emoji;
 
-  // Position new sticker randomly inside the form
-  s.style.left = (50 + Math.random() * 60) + "px";
-  s.style.top = (150 + Math.random() * 60) + "px";
+  // Cute clustered bottom-right placement
+  const baseX = formArea.clientWidth - 60;
+  const baseY = formArea.clientHeight - 80;
 
-  cardArea.appendChild(s);
+  const offsetX = (Math.random() * 25) - 10;
+  const offsetY = (Math.random() * 25) - 10;
 
-  // Enable dragging
-  enableDragging(s);
+  s.style.left = `${baseX + offsetX}px`;
+  s.style.top = `${baseY + offsetY}px`;
 
-  // Add to pending stickers list
+  formArea.appendChild(s);
+
   pendingStickers.push({
     emoji,
-    x: parseInt(s.style.left),
-    y: parseInt(s.style.top)
-  });
-
-  // Sync positions when dragged
-  s.dataset.index = pendingStickers.length - 1;
-}
-
-/* --------------------------------------------------
-   Dragging Logic
--------------------------------------------------- */
-function enableDragging(el) {
-  let offsetX = 0, offsetY = 0, dragging = false;
-
-  el.addEventListener("pointerdown", (e) => {
-    dragging = true;
-    el.setPointerCapture(e.pointerId);
-
-    offsetX = e.clientX - el.offsetLeft;
-    offsetY = e.clientY - el.offsetTop;
-    el.style.transition = "none";
-  });
-
-  el.addEventListener("pointermove", (e) => {
-    if (!dragging) return;
-    el.style.left = e.clientX - offsetX + "px";
-    el.style.top = e.clientY - offsetY + "px";
-
-    const index = el.dataset.index;
-    if (index !== undefined) {
-      pendingStickers[index].x = parseInt(el.style.left);
-      pendingStickers[index].y = parseInt(el.style.top);
-    }
-  });
-
-  el.addEventListener("pointerup", (e) => {
-    dragging = false;
+    x: baseX + offsetX,
+    y: baseY + offsetY
   });
 }
 
@@ -150,24 +127,23 @@ form.addEventListener("submit", async (e) => {
 
   let imageUrl = null;
 
-  // Upload image
   if (file) {
     const storageRef = ref(storage, "notes/" + Date.now() + "_" + file.name);
     await uploadBytes(storageRef, file);
     imageUrl = await getDownloadURL(storageRef);
   }
 
-  // Clean stickers (remove DOM)
+  // clear preview stickers
   document.querySelectorAll(".note-form .note-sticker").forEach(s => s.remove());
 
-  // Save note
   await addDoc(collection(db, "notes"), {
     title,
     author,
     content,
     imageUrl,
     stickers: pendingStickers,
-    reactions: {}, // empty reaction object
+    reactions: {}, 
+    reactionUsers: {}, // { userId: {emoji:true} }
     timestamp: Date.now()
   });
 
@@ -189,14 +165,13 @@ async function loadNotes() {
 
   loadingSpinner.classList.add("hidden");
 
-  snapshot.forEach((document) => {
-    const data = document.data();
-    const id = document.id;
+  snapshot.forEach((Document) => {
+    const data = Document.data();
+    const id = Document.id;
 
     const wrapper = document.createElement("div");
     wrapper.className = "note-card";
 
-    // Main card container
     const card = document.createElement("div");
     card.className = "note-card-inner";
 
@@ -208,112 +183,114 @@ async function loadNotes() {
     `;
 
     /* ----------------------------------------------
-       Stickers
+       Stickers — static, cute clustered bottom-right
     ---------------------------------------------- */
     if (Array.isArray(data.stickers)) {
-      data.stickers.forEach((st) => {
+      data.stickers.forEach(st => {
         const el = document.createElement("div");
         el.className = "note-sticker";
         el.textContent = st.emoji;
         el.style.left = st.x + "px";
         el.style.top = st.y + "px";
-        enableDragging(el);
-
-        // Update Firestore on drag end
-        el.addEventListener("pointerup", async () => {
-          st.x = parseInt(el.style.left);
-          st.y = parseInt(el.style.top);
-
-          await updateDoc(doc(db, "notes", id), {
-            stickers: data.stickers
-          });
-        });
-
         card.appendChild(el);
       });
     }
 
     /* ----------------------------------------------
-       Reactions
+       Reactions (Discord-style toggle)
     ---------------------------------------------- */
     const reactions = ["❤️", "😭", "😍", "👍", "🍆"];
-    const reactionBar = document.createElement("div");
-    reactionBar.className = "reaction-bar";
+    const bar = document.createElement("div");
+    bar.className = "reaction-bar";
 
-    reactionBar.innerHTML = reactions.map(r => `
-      <div class="reaction-button" data-react="${r}">
-        <span class="emoji">${r}</span>
-        <span class="reaction-count">${data.reactions?.[r] ?? 0}</span>
-      </div>
-    `).join("");
+    // defaults
+    if (!data.reactions) data.reactions = {};
+    if (!data.reactionUsers) data.reactionUsers = {};
 
-    // Add floating reaction bubbles
-    reactionBar.addEventListener("click", async (e) => {
+    bar.innerHTML = reactions
+      .map(r => `
+        <div class="reaction-button ${data.reactionUsers[USER_ID]?.[r] ? "reacted" : ""}" data-react="${r}">
+          <span class="emoji">${r}</span>
+          <span class="reaction-count">${data.reactions[r] ?? 0}</span>
+        </div>
+      `)
+      .join("");
+
+    bar.addEventListener("click", async (e) => {
       const btn = e.target.closest(".reaction-button");
       if (!btn) return;
-
+      
       const emoji = btn.dataset.react;
+      if (!data.reactions[emoji]) data.reactions[emoji] = 0;
+      if (!data.reactionUsers[USER_ID]) data.reactionUsers[USER_ID] = {};
 
-      // Update counter
-      if (!data.reactions) data.reactions = {};
-      data.reactions[emoji] = (data.reactions[emoji] ?? 0) + 1;
+      const userHasReacted = data.reactionUsers[USER_ID][emoji] === true;
 
+      // Toggle behavior
+      if (userHasReacted) {
+        // Remove reaction
+        data.reactions[emoji] = Math.max(0, data.reactions[emoji] - 1);
+        delete data.reactionUsers[USER_ID][emoji];
+        btn.classList.remove("reacted");
+      } else {
+        // Add reaction
+        data.reactions[emoji] += 1;
+        data.reactionUsers[USER_ID][emoji] = true;
+        btn.classList.add("reacted");
+
+        // floating bubble
+        const bubble = document.createElement("div");
+        bubble.className = "reaction-float";
+        bubble.textContent = emoji;
+        bubble.style.left = "50%";
+        bubble.style.top = "0";
+        wrapper.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 1100);
+      }
+
+      // Persist to Firestore
       await updateDoc(doc(db, "notes", id), {
-        reactions: data.reactions
+        reactions: data.reactions,
+        reactionUsers: data.reactionUsers
       });
 
       // Update UI count
       btn.querySelector(".reaction-count").textContent = data.reactions[emoji];
-
-      // Floating bubble
-      const bubble = document.createElement("div");
-      bubble.className = "reaction-float";
-      bubble.textContent = emoji;
-      bubble.style.left = "50%";
-      bubble.style.top = "0";
-      wrapper.appendChild(bubble);
-
-      setTimeout(() => bubble.remove(), 1200);
     });
 
-    card.appendChild(reactionBar);
+    card.appendChild(bar);
 
     /* ----------------------------------------------
-       Edit + Delete Buttons
+       Edit + Delete
     ---------------------------------------------- */
     const actions = document.createElement("div");
     actions.className = "note-actions";
 
     actions.innerHTML = `
-      <button class="note-btn edit-btn" data-id="${id}" data-author="${data.author}">Edit</button>
-      <button class="note-btn delete-btn" data-id="${id}" data-author="${data.author}">Delete</button>
+      <button class="note-btn edit-btn" data-id="${id}">Edit</button>
+      <button class="note-btn delete-btn" data-id="${id}">Delete</button>
     `;
 
     card.appendChild(actions);
-
     wrapper.appendChild(card);
     notesList.appendChild(wrapper);
   });
 }
 
 /* --------------------------------------------------
-   EDIT / DELETE
+   EDIT / DELETE HANDLING
 -------------------------------------------------- */
 document.addEventListener("click", async (e) => {
-  const target = e.target;
+  const t = e.target;
 
-  /* DELETE */
-  if (target.classList.contains("delete-btn")) {
-    const id = target.dataset.id;
-    const note = doc(db, "notes", id);
-    await deleteDoc(note);
+  if (t.classList.contains("delete-btn")) {
+    await deleteDoc(doc(db, "notes", t.dataset.id));
     loadNotes();
   }
 
-  /* EDIT MODE */
-  if (target.classList.contains("edit-btn")) {
-    const id = target.dataset.id;
-    const card = target.closest(".note-card-inner");
+  if (t.classList.contains("edit-btn")) {
+    const id = t.dataset.id;
+    const card = t.closest(".note-card-inner");
 
     const titleEl = card.querySelector(".note-title");
     const contentEl = card.querySelector(".note-content");
@@ -324,15 +301,14 @@ document.addEventListener("click", async (e) => {
     titleEl.outerHTML = `<input class="edit-field edit-title" value="${oldTitle}">`;
     contentEl.outerHTML = `<textarea class="edit-field edit-content">${oldContent}</textarea>`;
 
-    target.textContent = "Save";
-    target.classList.add("save-btn");
-    target.classList.remove("edit-btn");
+    t.textContent = "Save";
+    t.classList.add("save-btn");
+    t.classList.remove("edit-btn");
   }
 
-  /* SAVE EDIT */
-  if (target.classList.contains("save-btn")) {
-    const id = target.dataset.id;
-    const card = target.closest(".note-card-inner");
+  if (t.classList.contains("save-btn")) {
+    const id = t.dataset.id;
+    const card = t.closest(".note-card-inner");
 
     const newTitle = card.querySelector(".edit-title").value.trim();
     const newContent = card.querySelector(".edit-content").value.trim();

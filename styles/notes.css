@@ -35,15 +35,19 @@
 }
 
 /* ============================================
-   FORM STYLING
+   FORM
 ============================================ */
 .note-form {
+  position: relative;
   background: linear-gradient(180deg, var(--card), var(--card-2));
   border: 1px solid rgba(255,255,255,.10);
   box-shadow: var(--shadow);
   border-radius: 16px;
   padding: 1.25rem 1.25rem 1.5rem;
   margin-bottom: 1.5rem;
+
+  overflow: hidden;
+  min-height: 280px;
 }
 
 .note-form input,
@@ -59,14 +63,8 @@
 }
 
 /* ============================================
-   STICKER PICKER (TAP TO ADD)
+   STICKER PICKER
 ============================================ */
-.sticker-chooser p {
-  margin: 0 0 .35rem;
-  font-size: .9rem;
-  color: var(--muted);
-}
-
 .sticker-options {
   display: flex;
   gap: .7rem;
@@ -77,47 +75,33 @@
   font-size: 2.4rem;
   cursor: pointer;
   filter: saturate(0.4);
-  transform: scale(1);
-  transition: 0.25s ease;
+  transition: 0.25s;
+  user-select: none;
 
-  /* Force emoji rendering */
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-  display: inline-block;
-  line-height: 1;
-
-  /* Good clickable area */
-  min-width: 40px;
-  min-height: 40px;
+  min-width: 44px;
+  min-height: 44px;
   text-align: center;
 
-  /* No shrinking */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
 }
 
 .sticker-options span:hover {
-  transform: scale(1.3) rotate(6deg);
+  transform: scale(1.25) rotate(6deg);
   filter: saturate(1);
 }
 
 /* ============================================
-   NOTES LIST
+   NOTE CARDS
 ============================================ */
 .notes-list {
   display: grid;
   gap: 1.2rem;
 }
 
-/* Fade cascade */
 .note-card {
   opacity: 0;
   animation: noteFade 0.7s ease forwards;
 }
-
-.note-card:nth-child(1) { animation-delay: 0.05s; }
-.note-card:nth-child(2) { animation-delay: 0.12s; }
-.note-card:nth-child(3) { animation-delay: 0.2s; }
-.note-card:nth-child(4) { animation-delay: 0.28s; }
 
 @keyframes noteFade {
   from { opacity: 0; transform: translateY(12px) scale(0.97); }
@@ -131,22 +115,21 @@
   border-radius: 16px;
   padding: 1rem 1.2rem 1.3rem;
   box-shadow: var(--shadow);
+  overflow: hidden;
+  min-height: 220px;
 }
 
 /* ============================================
-   DRAGGABLE STICKERS ON NOTES
+   STICKERS (STATIC CLUSTER)
 ============================================ */
 .note-sticker {
   position: absolute;
-  font-size: 2.2rem;
-  cursor: grab;
-
-  /* Emoji rendering */
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-
-  /* Animation wobble */
-  animation: wobble 4s ease-in-out infinite;
+  font-size: 2.3rem;
+  pointer-events: none;
   user-select: none;
+  animation: wobble 4s ease-in-out infinite;
+
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
 }
 
 @keyframes wobble {
@@ -155,17 +138,13 @@
   100% { transform: rotate(-4deg) translateY(0); }
 }
 
-.note-sticker:active {
-  cursor: grabbing;
-}
-
 /* ============================================
-   REACTIONS BAR
+   REACTIONS
 ============================================ */
 .reaction-bar {
   display: flex;
   gap: .5rem;
-  margin-top: .65rem;
+  margin-top: .7rem;
 }
 
 .reaction-button {
@@ -175,16 +154,23 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 1.2rem;
-  transition: .2s ease;
   display: flex;
   align-items: center;
   gap: .3rem;
-
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  
+  transition: 0.25s ease;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
 }
 
 .reaction-button:hover {
   background: rgba(255,255,255,.18);
+}
+
+.reaction-button.reacted {
+  background: rgba(80,130,255,0.25);
+  border-color: rgba(80,130,255,0.45);
+  box-shadow: 0 0 8px rgba(80,130,255,0.45);
+  transform: scale(1.1);
 }
 
 .reaction-count {
@@ -192,13 +178,13 @@
   color: var(--muted);
 }
 
-/* Floating reaction bubble */
+/* FLOATING REACTION BUBBLE */
 .reaction-float {
   position: absolute;
   font-size: 2rem;
   animation: floatUp 1.1s ease-out forwards;
-  pointer-events:none;
   opacity: 0;
+  pointer-events: none;
 }
 
 @keyframes floatUp {
@@ -208,12 +194,12 @@
 }
 
 /* ============================================
-   EDIT / DELETE BUTTONS
+   EDIT / DELETE
 ============================================ */
 .note-actions {
-  margin-top: .8rem;
   display: flex;
   gap: .5rem;
+  margin-top: .8rem;
 }
 
 .note-btn {
@@ -226,47 +212,13 @@
   color: var(--muted);
   transition: .2s;
 }
+
 .note-btn:hover {
   background: rgba(255,255,255,.15);
 }
 
 /* ============================================
-   EDIT FIELDS
-============================================ */
-.edit-field {
-  width: 100%;
-  padding: .6rem .8rem;
-  margin-top: .4rem;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 10px;
-  color: var(--text);
-}
-
-/* ============================================
-   LOADING SPINNER
-============================================ */
-.loading-spinner {
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0;
-}
-.loading-spinner.hidden {
-  display: none;
-}
-.spinner-heart {
-  font-size: 2.6rem;
-  animation: spinnerBeat 1s infinite ease-in-out;
-  opacity: .7;
-}
-@keyframes spinnerBeat {
-  0% { transform: scale(1); opacity: .5; }
-  50% { transform: scale(1.4); opacity: 1; }
-  100% { transform: scale(1); opacity: .5; }
-}
-
-/* ============================================
-   TYPING OVERLAY (Save animation)
+   TYPING OVERLAY
 ============================================ */
 .typing-overlay {
   position: fixed;
@@ -294,8 +246,8 @@
 
 .typing-heart {
   font-size: 3rem;
-  animation: spinnerBeat 1s infinite;
   margin-bottom: .3rem;
+  animation: spinnerBeat 1s infinite;
 }
 
 .typing-dots span {
@@ -307,22 +259,40 @@
   border-radius: 50%;
   animation: typingBounce 1.4s infinite;
 }
-.typing-dots span:nth-child(2) { animation-delay: .2s; }
-.typing-dots span:nth-child(3) { animation-delay: .4s; }
+
+.typing-dots span:nth-child(2){ animation-delay: .2s; }
+.typing-dots span:nth-child(3){ animation-delay: .4s; }
 
 @keyframes typingBounce {
   0%, 60%, 100% { transform: translateY(0); }
   30% { transform: translateY(-8px); }
 }
 
+@keyframes spinnerBeat {
+  0% { transform: scale(1); opacity: .5; }
+  50% { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(1); opacity: .5; }
+}
+
+/* ============================================
+   SPINNER
+============================================ */
+.loading-spinner {
+  display: flex;
+  justify-content:center;
+  margin: 1rem 0;
+}
+.loading-spinner.hidden { display: none; }
+
+.spinner-heart {
+  font-size: 2.6rem;
+  animation: spinnerBeat 1s infinite;
+}
+
 /* ============================================
    RESPONSIVE
 ============================================ */
 @media (max-width: 600px) {
-  .sticker-options span {
-    font-size: 2rem;
-  }
-  .reaction-button {
-    padding: .15rem .4rem;
-  }
+  .sticker-options span { font-size: 2rem; }
+  .reaction-button { padding: .15rem .4rem; }
 }
